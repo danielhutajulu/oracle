@@ -6,7 +6,7 @@ INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
 VALUES('7076','Agung Widodo','Bogor','081286864048');
 
 INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
-VALUES('7077','Bahlul Alam','Cimone','081286864049');
+VALUES('7077','Bahrul Alam','Cimone','081286864049');
 
 INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
 VALUES('7078','Kundang Karsono','Batavia','081286864050');
@@ -21,7 +21,7 @@ desc t_dosen
 UPDATE:
 UPDATE t_dosen
 SET
-nama_dosen = 'Bahlul Alam',
+nama_dosen = 'Bahrul Alam',
 alamat = 'Sulawesi',
 nohp = '081286864049'
 WHERE nidn = '7077'
