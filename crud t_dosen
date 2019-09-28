@@ -1,0 +1,31 @@
+CREATE:
+INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
+VALUES('7075','Marzuki Silalahi','Jakarta','081286864047');
+
+INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
+VALUES('7076','Agung Widodo','Bogor','081286864048');
+
+INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
+VALUES('7077','Bahlul Alam','Cimone','081286864049');
+
+INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
+VALUES('7078','Kundang Karsono','Batavia','081286864050');
+
+INSERT INTO t_dosen(nidn,nama_dosen,alamat,nohp)
+VALUES('7079','Lala','Bumi','081286864051');
+--------------------------------------------------------------
+READ:
+SELECT * FROM t_dosen
+desc t_dosen
+--------------------------------------------------------------
+UPDATE:
+UPDATE t_dosen
+SET
+nama_dosen = 'Bahlul Alam',
+alamat = 'Sulawesi',
+nohp = '081286864049'
+WHERE nidn = '7077'
+--------------------------------------------------------------
+DELETE:
+DELETE t_dosen
+WHERE nidn = '7075';
