@@ -1,0 +1,113 @@
+desc Product
+desc Employee
+desc Customer
+desc Transaction_Order
+desc Payment
+desc Login
+desc Shipment
+desc Stock
+desc Transaction_Order_Details
+
+select * from Product
+desc Product
+INSERT INTO Product(PRODUCT_ID,PRODUCT_NAME,CATEGORY,BUY_PRICE,SELL_PRICE,PRODUCT_IMAGE,DESCRIPTION)
+VALUES('08613990','Flashdisk','Hardware','Rp. 125.000,00','Rp. 180.000,00','','ADATA S102 USB 3.2 flash drive series has evolved. Letting you enjoy the thrill of high speed transmission, ADATA provides a feeling of luxury at a highly competitive price.');
+INSERT INTO Product(PRODUCT_ID,PRODUCT_NAME,CATEGORY,BUY_PRICE,SELL_PRICE,PRODUCT_IMAGE,DESCRIPTION)
+VALUES('08613991','Harddisk','Hardware','Rp. 655.000,00','Rp. 800.000,00','','');
+select * from Employee
+desc Employee
+INSERT INTO Employee(EMPLOYEE_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, FATHER_NAME, MOTHER_NAME, EMAIL, GENDER, DATE_OF_BIRTH, MARITAL_STATUS, ADDRESS)
+VALUES('20000273','Daniel','Anarchaoz','Hutajulu','Zeus','Dione','daniel.hutajulu404@gmail.com','Men','01-23-1997','Complicated','U-Residence Apartment Lippo Karawaci, Tangerang - Banten 15720');
+select * from Customer
+desc Customer
+INSERT INTO Customer(CUSTOMER_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, SHIPPING_ADDRESS, EMAIL, CONTACT)
+VALUES('1908666780','Billie','Chaos','Eilish','Los Angeles, California, U.S.','billieeilish@gmail.com','081386669080');
+
+INSERT INTO Customer(CUSTOMER_ID, FIRST_NAME, MIDDLE_NAME, LAST_NAME, SHIPPING_ADDRESS, EMAIL, CONTACT)
+VALUES('1908666781','Imagine','Anarchy','Dragons','Las Vegas, Nevada, U.S.','imaginedrag00n@gmail.com','081286864047');
+
+UPDATE Customer
+SET Contact = '081386669080'
+WHERE Customer_ID = '1908666780'
+select * from Payment
+desc Payment
+INSERT INTO Payment(PAYMENT_NO, PAYMENT_TYPE, PAYMENT_DATE, AMOUNT)
+VALUES('98001','Cash On Delivery','11-04-2019','Rp. 159.900,00');
+select * from Payment
+desc Payment
+INSERT INTO Payment(PAYMENT_NO, PAYMENT_TYPE, PAYMENT_DATE, AMOUNT)
+VALUES('98001','Cash On Delivery','11-04-2019','Rp. 159.900,00');
+INSERT INTO Payment(PAYMENT_NO, PAYMENT_TYPE, PAYMENT_DATE, AMOUNT)
+VALUES('98002','Transfer OVO','11-05-2019','Rp. 269.900,00');
+INSERT INTO Payment(PAYMENT_NO, PAYMENT_TYPE, PAYMENT_DATE, AMOUNT)
+VALUES('98003','Promo Gopay','11-06-2019','Rp. 998.900,00');
+select * from Login
+desc Login
+INSERT INTO Login(USER_ID, PASSWORD, ACCESS_LEVEL)
+VALUES('20180801381','muchidi0901&^','VIP');
+-->
+INSERT INTO Login(USER_ID, PASSWORD, ACCESS_LEVEL)
+VALUES('20180801382','default123','Reguler');
+INSERT INTO Login(USER_ID, PASSWORD, ACCESS_LEVEL)
+VALUES('20180801383','anonimity375','Paralel');
+INSERT INTO Login(USER_ID, PASSWORD, ACCESS_LEVEL)
+VALUES('20180801384','vevo90666@!','Security');
+INSERT INTO Login(USER_ID, PASSWORD, ACCESS_LEVEL)
+VALUES('20180801385','userunknown1337','Tester');
+INSERT INTO Login(USER_ID, PASSWORD, ACCESS_LEVEL)
+VALUES('20180801386','354U1799VL','Rektor');
+Select * from transaction_order
+desc transaction_order
+
+INSERT INTO transaction_order (ORDER_NO, CUSTOMER_ID, DATE_ORDER, STATUS_DELIVERY)
+VALUES ('99876701','1908666780','11-05-2019','COMPLETED');
+
+INSERT INTO transaction_order (ORDER_NO, CUSTOMER_ID, DATE_ORDER, STATUS_DELIVERY)
+VALUES ('99876702','1908666781','11-06-2019','COMPLETED');
+select * from STOCK
+desc STOCK
+
+INSERT INTO STOCK (PRODUCT_NAME, QTY, DATE_OF_STOCK, STOCK_BY)
+VALUES ('Flashdisk','100 PCS','01-11-2019','WAREHOUSE');
+
+INSERT INTO STOCK (PRODUCT_NAME, QTY, DATE_OF_STOCK, STOCK_BY)
+VALUES ('Harddisk','200 PCS','01-11-2019','WAREHOUSE');
+INSERT INTO TRANSACTION_ORDER_DETAILS (ORDER_NO, PRODUCT_NAME, QUANTITY)
+VALUES ('99876702','Harddisk','200 PCS');
+
+select * from Shipment
+desc Shipment
+
+INSERT INTO Shipment (Shipment_Address, Shipment_Date, Note, Shipment_Contact)
+VALUES ('Los Angeles, California, U.S.','11-07-2019','','0210895723');
+
+INSERT INTO Shipment (Shipment_Address, Shipment_Date, Note, Shipment_Contact)
+VALUES ('Las Vegas, Nevada, U.S.','11-08-2019','Fragile, please handle with care.','0210895723');
+
+// --------------------
+6. Tampilkan data transaksi
+
+select * from Payment
+// --------------------
+
+7. Tampilkan product terbanyak dijual
+
+select * from Payment
+select * from Transaction_Order
+select * from Product
+
+select distinct b.Product_Name, count(a.PAYMENT_NO) as MAX_SUM
+from Payment a, Product b
+where a.ORDER_NO = b.ORDER_NO group by a.ORDER_NO, b.Product_Name order by MAX_SUM desc; // ok bisa
+
+// --------------------
+
+8. Tampilkan persentasi penjualan tiap hari untuk masing-masing produk
+
+SELECT A.ORDER_NO, CUSTOMER_ID, C.PRODUCT_NAME, B.QUANTITY 
+AS QTYSELL, DATE_ORDER, C.QUANTITY_STOCK 
+AS QTYFROM, TO_CHAR(B.QUANTITY/C.QUANTITY_STOCK*100) || '%' AS PERCENTAGE
+FROM TRANSACTION_ORDER A
+JOIN TRANSACTION_ORDER_DETAILS B ON A.ORDER_NO = B.ORDER_NO
+JOIN STOCK C ON C.PRODUCT_NAME = B.PRODUCT_NAME
+ORDER BY ORDER_NO ASC
